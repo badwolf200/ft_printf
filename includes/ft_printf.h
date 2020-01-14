@@ -6,7 +6,7 @@
 /*   By: rkowalsk <rkowalsk@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/06 17:18:17 by rkowalsk     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/10 15:43:09 by rkowalsk    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/13 16:09:30 by rkowalsk    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,8 +19,8 @@
 # include "libft.h"
 
 char			*ft_uitoa(unsigned int n);
-char			*ft_uitox_lowercase(unsigned int n);
-char			*ft_uitox_uppercase(unsigned int n);
+char			*ft_uitox_lowercase(unsigned long n);
+char			*ft_uitox_uppercase(unsigned long n);
 
 typedef struct	s_param
 {

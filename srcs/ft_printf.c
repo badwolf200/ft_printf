@@ -6,27 +6,12 @@
 /*   By: rkowalsk <rkowalsk@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/06 16:33:30 by rkowalsk     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/10 15:47:21 by rkowalsk    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/14 16:30:39 by rkowalsk    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-/*void	afich_d_chifr(size_t nb_val, ...)
-{
-	va_list param;
-	size_t	i;
-
-	va_start(param, nb_val);
-	i = 0;
-	while (i < nb_val)
-	{
-		ft_putnbr_fd(va_arg(param, int), 1);
-		i++;
-	}
-	va_end(param);
-}*/
 
 int		ft_print_param(va_list params, char conv)
 {
@@ -67,6 +52,18 @@ int		ft_print_param(va_list params, char conv)
 		ft_putstr_fd(param.str, 1);
 		return (ft_strlen(param.str));
 	}
+	else if (conv == 'p')
+	{
+		param.str = ft_uitox_lowercase(va_arg(params, uintptr_t));
+		param.str = ft_strjoin("0x", param.str);
+		ft_putstr_fd(param.str, 1);
+		return (ft_strlen(param.str));
+	}
+	else if (conv == '%')
+	{
+		ft_putchar_fd('%', 1);
+		return (1);
+	}
 	return (-1);
 }
 
@@ -92,10 +89,4 @@ int		ft_printf(const char *str, ...)
 	}
 	va_end(params);
 	return (ret);
-}
-
-int	main(void)
-{
-	ft_printf("%d", ft_printf("prank |%s| |%d| |%c| |%u| |%x| |%X|\n", "bite", 14, '<', 1234567891, 31, 31));
-	return (0);
 }

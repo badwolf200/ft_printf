@@ -6,16 +6,16 @@
 /*   By: rkowalsk <rkowalsk@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/11 13:30:35 by rkowalsk     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/10 15:41:51 by rkowalsk    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/14 14:44:35 by rkowalsk    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	get_size(unsigned int n)
+static int	get_size(unsigned long n)
 {
-	int			size;
+	long long int			size;
 
 	size = 0;
 	if (n == 0)
@@ -28,7 +28,7 @@ static int	get_size(unsigned int n)
 	return (size);
 }
 
-char		*ft_uitox_lowercase(unsigned int n)
+char		*ft_uitox_lowercase(unsigned long n)
 {
 	int			size;
 	char		*str;
@@ -51,7 +51,7 @@ char		*ft_uitox_lowercase(unsigned int n)
 	return (str);
 }
 
-char		*ft_uitox_uppercase(unsigned int n)
+char		*ft_uitox_uppercase(unsigned long n)
 {
 	int			size;
 	char		*str;

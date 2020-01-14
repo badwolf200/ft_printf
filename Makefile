@@ -6,34 +6,42 @@
 #    By: rkowalsk <rkowalsk@student.le-101.fr>      +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/10/14 14:32:57 by rkowalsk     #+#   ##    ##    #+#        #
-#    Updated: 2020/01/14 16:27:50 by rkowalsk    ###    #+. /#+    ###.fr      #
+#    Updated: 2020/01/14 16:23:38 by rkowalsk    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
 
-NAME = libft.a
-SRCS = ft_isalnum.c ft_bzero.c ft_isalpha.c ft_isascii.c ft_isdigit.c ft_isprint.c ft_memccpy.c ft_memchr.c ft_memcmp.c ft_memcpy.c ft_strlen.c ft_memmove.c ft_memset.c ft_strchr.c ft_strncmp.c ft_strrchr.c ft_tolower.c ft_toupper.c ft_strlcpy.c ft_strnstr.c ft_strlcat.c ft_atoi.c ft_substr.c ft_strjoin.c ft_strtrim.c ft_split.c ft_itoa.c ft_strmapi.c ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c ft_calloc.c ft_strdup.c
+NAME = libft_printf.a
+SRCS =	srcs/ft_printf.c \
+		srcs/ft_uitoa.c \
+		srcs/ft_uitox.c
 FLAGS = -Wall -Wextra -Werror
-HEADER = libft.h
+HEADER = includes
+LIB_NAME = libft/libft.a
 OBJS = ${SRCS:.c=.o}
 
 .PHONY: all
 .PHONY: clean
 .PHONY: fclean
-.PHONY: re 
+.PHONY: re
+
+$(NAME): $(OBJS) $(LIB_NAME)
+	ar rc $(NAME) $(OBJS) $(LIB_NAME)
 
 %o: %c $(HEADER)
 	gcc $(FLAGS) -I $(HEADER) -c $< -o $@
 
-$(NAME): $(OBJS)
-	ar rc $(NAME) $(OBJS)
+$(LIB_NAME):
+	cd libft && make all
 
 all: $(NAME)
 
 clean:
 	rm -f $(OBJS)
+	cd libft && make clean
 
 fclean: clean
 	rm -f $(NAME)
+	cd libft && make fclean
 
 re: fclean all

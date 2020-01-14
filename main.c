@@ -5,50 +5,37 @@
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: rkowalsk <rkowalsk@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2020/01/06 16:33:30 by rkowalsk     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/07 15:45:58 by rkowalsk    ###    #+. /#+    ###.fr     */
+/*   Created: 2020/01/14 16:30:53 by rkowalsk     #+#   ##    ##    #+#       */
+/*   Updated: 2020/01/14 16:31:12 by rkowalsk    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	afich_d_chifr(size_t nb_val, ...)
-{
-	va_list param;
-	size_t	i;
-
-	va_start(param, nb_val);
-	i = 0;
-	while (i < nb_val)
-	{
-		ft_putnbr_fd(va_arg(param, int), 1);
-		i++;
-	}
-	va_end(param);
-}
-
-
-
-void	ft_print_param(va_list params, char conv);
-
-int		ft_printf(const char *str, ...)
-{
-	va_list params;
-	size_t	i;
-
-	va_start(params, str);
-	i = 0;
-	while(str[i])
-	{
-		if (str[i] == '%')
-		{
-			ft_print_param(params, )
-		}
-	}
-}
-
 int	main(void)
 {
-	afich_d_chifr(6, 1, 2, 3, 4, 5, 1000);
+	int i = 50;
+	char str[1];
+	*str = 'p';
+
+	ft_printf("%d\n", ft_printf("prank |%s| |%p| |%c| |%d| |%u| |%x| |%X| |%%|\n", "bite", &i, '<', i, 1234567891, 31, 31));
+	printf("%d\n", printf("prank |%s| |%p| |%c| |%d| |%u| |%x| |%X| |%%|\n", "bite", &i, '<', i, 1234567891, 31, 31));
+
+	dprintf(1, "|%12d|\n", 123);
+	dprintf(1, "|%-12d|\n", 123);
+	dprintf(1, "|%.12d|\n", 123);
+	dprintf(1, "|%.d|\n", 123);
+	dprintf(1, "|%012d|\n", 123);
+	dprintf(1, "|%06.6d|\n", 123);
+	dprintf(1, "|%06.d|\n", 123);
+	dprintf(1, "|%0.6d|\n", 123);
+	dprintf(1, "|%12s|\n", "prank");
+	dprintf(1, "|%3s|\n", "prank");
+	dprintf(1, "|%-12s|\n", "prank");
+	dprintf(1, "|%.12s|\n", "prank");
+	dprintf(1, "|%.3s|\n", "prank");
+	dprintf(1, "|%.s|\n", "prank");
+
+	return (0);
 }
