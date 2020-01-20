@@ -6,12 +6,24 @@
 /*   By: rkowalsk <rkowalsk@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/06 16:33:30 by rkowalsk     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/14 16:30:39 by rkowalsk    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/20 16:04:52 by rkowalsk    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+static int	conv_or_flag(char c)
+{
+	if (c == 'c' || c == 's' || c == 'p' || c == 'd' || c == 'i' || c == 'u' ||
+		c == 'x' || c == 'X' || c == '%')
+		return (1);
+	else if (c == '.' || c == '*' || c == '0' || c == '-')
+		return (2);
+	else if (ft_isdigit(c))
+		return (3);
+	return (0);
+}
 
 int		ft_print_param(va_list params, char conv)
 {
@@ -79,7 +91,14 @@ int		ft_printf(const char *str, ...)
 	while(str[i])
 	{
 		if (str[i] == '%')
-			ret = ret + ft_print_param(params, str[++i]);
+		{
+			if (conv_or_flag(str[++i]) == 1)
+				ret = ft_print_param(params, str[i]);
+			else if (conv_or_flag(str[++i]) == 2)
+			{
+				
+			}
+		}
 		else
 		{
 			ft_putchar_fd(str[i], 1);
