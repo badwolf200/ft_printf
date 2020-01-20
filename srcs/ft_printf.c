@@ -6,7 +6,7 @@
 /*   By: rkowalsk <rkowalsk@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/01/06 16:33:30 by rkowalsk     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/20 16:04:52 by rkowalsk    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/01/20 16:07:39 by rkowalsk    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -25,10 +25,16 @@ static int	conv_or_flag(char c)
 	return (0);
 }
 
+t_param	ft_pars_flags(char *str)
+{
+	int	i;
+	
+}
+
 int		ft_print_param(va_list params, char conv)
 {
-	t_param param;
-
+	char	*str;
+	int		
 	if (conv == 'c')
 	{
 		ft_putchar_fd(va_arg(params, int), 1);
@@ -36,40 +42,40 @@ int		ft_print_param(va_list params, char conv)
 	}
 	else if (conv == 's')
 	{
-		param.str = va_arg(params, char*);
-		ft_putstr_fd(param.str, 1);
-		return (ft_strlen(param.str));
+		str = va_arg(params, char*);
+		ft_putstr_fd(str, 1);
+		return (ft_strlen(str));
 	}
 	else if (conv == 'd' || conv == 'i')
 	{
-		param.str = ft_itoa(va_arg(params, int));
-		ft_putstr_fd(param.str, 1);
-		return (ft_strlen(param.str));
+		str = ft_itoa(va_arg(params, int));
+		ft_putstr_fd(str, 1);
+		return (ft_strlen(str));
 	}
 	else if (conv == 'u')
 	{
-		param.str = ft_uitoa(va_arg(params, unsigned int));
-		ft_putstr_fd(param.str, 1);
-		return (ft_strlen(param.str));
+		str = ft_uitoa(va_arg(params, unsigned int));
+		ft_putstr_fd(str, 1);
+		return (ft_strlen(str));
 	}
 	else if (conv == 'x')
 	{
-		param.str = ft_uitox_lowercase(va_arg(params, unsigned int));
-		ft_putstr_fd(param.str, 1);
-		return (ft_strlen(param.str));
+		str = ft_uitox_lowercase(va_arg(params, unsigned int));
+		ft_putstr_fd(str, 1);
+		return (ft_strlen(str));
 	}
 	else if (conv == 'X')
 	{
-		param.str = ft_uitox_uppercase(va_arg(params, unsigned int));
-		ft_putstr_fd(param.str, 1);
-		return (ft_strlen(param.str));
+		str = ft_uitox_uppercase(va_arg(params, unsigned int));
+		ft_putstr_fd(str, 1);
+		return (ft_strlen(str));
 	}
 	else if (conv == 'p')
 	{
-		param.str = ft_uitox_lowercase(va_arg(params, uintptr_t));
-		param.str = ft_strjoin("0x", param.str);
-		ft_putstr_fd(param.str, 1);
-		return (ft_strlen(param.str));
+		str = ft_uitox_lowercase(va_arg(params, uintptr_t));
+		str = ft_strjoin("0x", str);
+		ft_putstr_fd(str, 1);
+		return (ft_strlen(str));
 	}
 	else if (conv == '%')
 	{
