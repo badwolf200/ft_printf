@@ -1,31 +1,49 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strrchr.c                                       :+:      :+:    :+:   */
+/*   ft_uitoa.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rkowalsk <rkowalsk@student.le-101.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/09 11:07:31 by rkowalsk          #+#    #+#             */
-/*   Updated: 2020/02/17 15:56:40 by rkowalsk         ###   ########lyon.fr   */
+/*   Created: 2019/10/11 13:30:35 by rkowalsk          #+#    #+#             */
+/*   Updated: 2020/02/17 15:57:47 by rkowalsk         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strrchr(const char *s, int c)
+static int	get_size(unsigned int n)
 {
-	char	*str;
-	int		i;
+	int			size;
 
-	str = (char *)s;
-	i = 0;
-	while (str[i])
-		i++;
-	while (i >= 0)
+	size = 0;
+	if (n == 0)
+		return (1);
+	while (n)
 	{
-		if (c == str[i])
-			return (str + i);
-		i--;
+		n /= 10;
+		size++;
 	}
-	return (0);
+	return (size);
+}
+
+char		*ft_uitoa(unsigned int n)
+{
+	int			size;
+	char		*str;
+	int			i;
+
+	i = 0;
+	size = get_size(n);
+	if (!(str = (char *)malloc((size + 1) * sizeof(char))))
+		return (NULL);
+	if (n == 0)
+		str[0] = '0';
+	str[size--] = '\0';
+	while (n)
+	{
+		str[size--] = n % 10 + '0';
+		n /= 10;
+	}
+	return (str);
 }

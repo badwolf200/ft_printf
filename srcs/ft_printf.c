@@ -1,14 +1,13 @@
 /* ************************************************************************** */
-/*                                                          LE - /            */
-/*                                                              /             */
-/*   ft_printf.c                                      .::    .:/ .      .::   */
-/*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: rkowalsk <rkowalsk@student.le-101.fr>      +:+   +:    +:    +:+     */
-/*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2020/01/06 16:33:30 by rkowalsk     #+#   ##    ##    #+#       */
-/*   Updated: 2020/01/20 16:07:39 by rkowalsk    ###    #+. /#+    ###.fr     */
-/*                                                         /                  */
-/*                                                        /                   */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rkowalsk <rkowalsk@student.le-101.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/12 16:33:52 by rkowalsk          #+#    #+#             */
+/*   Updated: 2020/02/12 16:34:00 by rkowalsk         ###   ########lyon.fr   */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
@@ -25,93 +24,142 @@ static int	conv_or_flag(char c)
 	return (0);
 }
 
-t_param	ft_pars_flags(char *str)
+t_flag		init_static(t_flag flags)
 {
-	int	i;
-	
+	flags.zero = false;
+	flags.precision = false;
+	flags.minus = false;
+	flags.error = false;
+	flags.width = false;
+	flags.nb_width = 0;
+	flags.nb_precisions = 0;
+	flags.conv = '?';
+	return (flags);
 }
 
-int		ft_print_param(va_list params, char conv)
+t_flag		ft_pars_flags(va_list params, char *str)
 {
-	char	*str;
-	int		
-	if (conv == 'c')
+	static t_flag	flags;
+	int				ret;
+	int				i;
+
+	flags = init_static(flags);
+	i = 0;
+	while (str[i] && (ret = conv_or_flag(str[i])) != 1)
 	{
-		ft_putchar_fd(va_arg(params, int), 1);
-		return (1);
+		if (ret == 0)
+		{
+			flags.error = true; // à vérifier dans la fonction mère ERRARE HUMANUM EST
+			return (flags);
+		}
+		else if (str[i] == '-')
+		{
+			flags.minus = true;
+			i++;
+		}
+		else if (str[i] == '0')
+		{
+			flags.zero = true;
+			i++;
+		}
+		else if (str[i] == '*')
+		{ 
+			if (flags.width == true)
+			{
+				flags.error = true;
+				return (flags);
+			}
+			flags.nb_width = va_arg(params, int);
+			if (flags.nb_width < 0)
+			{
+				flags.minus = true;
+				flags.nb_width = -flags.nb_width;
+			}
+			flags.width = true;
+			i++;
+		}
+		else if (ft_isdigit(str[i]))
+		{
+			if (flags.width == true)
+			{
+				flags.error = true;
+				return (flags);
+			}
+			flags.width = true;
+			flags.nb_width = ft_atoi(str + i);
+			while(ft_isdigit(str[i]))
+				i++;
+		}
+		else if (str[i] == '.')
+		{
+			if (flags.precision == true)
+			{
+				flags.error = true;
+				return (flags);
+			}
+			flags.precision = true;
+			if (str[++i] == '*')
+			{
+				flags.nb_precisions = va_arg(params, int);
+				if (flags.nb_precisions < 0)
+					flags.precision = false;
+				i++;
+			}
+			else
+			{
+				if (str[i] == '-')
+				{
+					flags.error = true;
+					return (flags);
+				}
+				flags.nb_precisions = ft_atoi(str + i);
+				while(ft_isdigit(str[i]))
+					i++;
+			}
+		}
 	}
-	else if (conv == 's')
-	{
-		str = va_arg(params, char*);
-		ft_putstr_fd(str, 1);
-		return (ft_strlen(str));
-	}
-	else if (conv == 'd' || conv == 'i')
-	{
-		str = ft_itoa(va_arg(params, int));
-		ft_putstr_fd(str, 1);
-		return (ft_strlen(str));
-	}
-	else if (conv == 'u')
-	{
-		str = ft_uitoa(va_arg(params, unsigned int));
-		ft_putstr_fd(str, 1);
-		return (ft_strlen(str));
-	}
-	else if (conv == 'x')
-	{
-		str = ft_uitox_lowercase(va_arg(params, unsigned int));
-		ft_putstr_fd(str, 1);
-		return (ft_strlen(str));
-	}
-	else if (conv == 'X')
-	{
-		str = ft_uitox_uppercase(va_arg(params, unsigned int));
-		ft_putstr_fd(str, 1);
-		return (ft_strlen(str));
-	}
-	else if (conv == 'p')
-	{
-		str = ft_uitox_lowercase(va_arg(params, uintptr_t));
-		str = ft_strjoin("0x", str);
-		ft_putstr_fd(str, 1);
-		return (ft_strlen(str));
-	}
-	else if (conv == '%')
-	{
-		ft_putchar_fd('%', 1);
-		return (1);
-	}
-	return (-1);
+	flags.conv = str[i];
+	if ((flags.zero && flags.nb_width < 0) ||
+	((flags.conv == 'p' || flags.conv == 'c' || flags.conv == '%') &&
+	(flags.nb_precisions || flags.zero))|| (flags.conv == 's' && flags.zero))
+		flags.error = true;
+	if (flags.zero && flags.precision &&
+	(flags.conv == 'd' || flags.conv == 'i'	|| flags.conv == 'u' ||
+	flags.conv == 'x' || flags.conv == 'X'))
+		flags.zero = false;
+	return (flags);
 }
 
 int		ft_printf(const char *str, ...)
 {
 	va_list params;
 	size_t	i;
+	int		size;
 	int		ret;
+	t_flag flags;
 
 	va_start(params, str);
-	ret = 0;
+	size = 0;
 	i = 0;
 	while(str[i])
 	{
 		if (str[i] == '%')
 		{
-			if (conv_or_flag(str[++i]) == 1)
-				ret = ft_print_param(params, str[i]);
-			else if (conv_or_flag(str[++i]) == 2)
-			{
-				
-			}
+			flags = ft_pars_flags(params, (char *)str + ++i);
+			//dprintf(1, "error : %d\nzero : %d\nprecision : %d\nminus : %d\nwidth :  %d\nnb_width : %d\nnb_precisions : %d\nconv : %c\n", flags.error, flags.zero, flags.precision, flags.minus, flags.width, flags.nb_width, flags.nb_precisions, flags.conv);
+			if (flags.error || (ret = ft_print_param(params, flags)) == -1)
+				return (-1);
+			size += ret;
+			while (conv_or_flag(str[i]) != 1)
+				i++;
 		}
 		else
 		{
 			ft_putchar_fd(str[i], 1);
-			ret++;
+			size++;
 		}
 		i++;
 	}
 	va_end(params);
-	return (ret);
+	return (size);
 }

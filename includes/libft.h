@@ -6,7 +6,7 @@
 /*   By: rkowalsk <rkowalsk@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/09 13:35:05 by rkowalsk     #+#   ##    ##    #+#       */
-/*   Updated: 2019/10/24 14:02:43 by rkowalsk    ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/02/12 12:49:35 by rkowalsk    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,6 +19,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 
+char	*ft_uitoa(unsigned int n);
 int		ft_isalnum(int c);
 void	ft_bzero(void *s, size_t n);
 int		ft_isalpha(int c);
