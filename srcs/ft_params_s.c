@@ -6,30 +6,30 @@
 /*   By: rkowalsk <rkowalsk@student.le-101.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 15:21:17 by rkowalsk          #+#    #+#             */
-/*   Updated: 2020/02/17 15:48:52 by rkowalsk         ###   ########lyon.fr   */
+/*   Updated: 2020/02/18 15:56:42 by rkowalsk         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static char *get_precision(char *str, t_flag flags)
+static char	*get_precision(char *str, t_flag flags)
 {
 	int		i;
 	char	*prec;
 
-    if (flags.precision == true)
-    {
+	if (flags.precision == true)
+	{
 		if (!(prec = malloc(sizeof(char) * (ft_strlen(str) + 1))))
 			return (NULL);
-        i = 0;
-        while (str[i] && i < flags.nb_precisions)
+		i = 0;
+		while (str[i] && i < flags.nb_precisions)
 		{
 			prec[i] = str[i];
 			i++;
 		}
 		prec[i] = '\0';
 		return (prec);
-    }
+	}
 	return (ft_strdup(str));
 }
 
@@ -59,20 +59,24 @@ int			ft_print_s(va_list params, t_flag flags)
 	char	*width;
 	int		size;
 
-	str = va_arg(params, char*);
-	if (!str)
-		str = "(null)";
-	if (!(str = get_precision(str, flags)))
-		return (-1);
-	if (!(width = get_width(str, flags)))
-		return (-1);
-	if (!flags.minus)
-		ft_putstr_fd(width, 1);
-	ft_putstr_fd(str, 1);
-	if (flags.minus)
-		ft_putstr_fd(width, 1);
-	size = ft_strlen(str) + ft_strlen(width);
-	free(width);
-	free(str);
-	return (size);
+	if (!(flags.precision && !flags.nb_precisions && !flags.nb_width))
+	{
+		str = va_arg(params, char*);
+		if (!str)
+			str = "(null)";
+		if (!(str = get_precision(str, flags)))
+			return (-1);
+		if (!(width = get_width(str, flags)))
+			return (-1);
+		if (!flags.minus)
+			ft_putstr_fd(width, 1);
+		ft_putstr_fd(str, 1);
+		if (flags.minus)
+			ft_putstr_fd(width, 1);
+		size = ft_strlen(str) + ft_strlen(width);
+		free(width);
+		free(str);
+		return (size);
+	}
+	return (0);
 }

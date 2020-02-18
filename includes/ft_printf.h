@@ -6,7 +6,7 @@
 /*   By: rkowalsk <rkowalsk@student.le-101.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/06 17:18:17 by rkowalsk          #+#    #+#             */
-/*   Updated: 2020/02/17 15:48:16 by rkowalsk         ###   ########lyon.fr   */
+/*   Updated: 2020/02/18 18:15:41 by rkowalsk         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,9 @@ int				ft_print_x_low(va_list params, t_flag flags);
 int				ft_print_x_up(va_list params, t_flag flags);
 int				ft_print_p(va_list params, t_flag flags);
 int				ft_print_s(va_list params, t_flag flags);
+t_flag			ft_pars_flags(va_list params, char *str);
+int				ft_conv_or_flag(char c);
+t_flag			ft_init_static(t_flag flags);
+t_flag			ft_pars_cases(t_flag flags);
 
 #endif

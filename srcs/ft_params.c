@@ -6,7 +6,7 @@
 /*   By: rkowalsk <rkowalsk@student.le-101.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 16:57:04 by rkowalsk          #+#    #+#             */
-/*   Updated: 2020/02/17 15:47:55 by rkowalsk         ###   ########lyon.fr   */
+/*   Updated: 2020/02/18 15:20:25 by rkowalsk         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,12 @@ int			ft_print_c(va_list params, t_flag flags)
 
 int			ft_print_percent(t_flag flags)
 {
-	int i;
+	int		i;
+	char	c;
 
+	c = ' ';
+	if (flags.zero)
+		c = '0';
 	i = 0;
 	if (flags.width || flags.minus)
 	{
@@ -45,7 +49,7 @@ int			ft_print_percent(t_flag flags)
 			ft_putchar_fd('%', 1);
 		while (i < flags.nb_width - 1)
 		{
-			ft_putchar_fd(' ', 1);
+			ft_putchar_fd(c, 1);
 			i++;
 		}
 		if (!flags.minus)

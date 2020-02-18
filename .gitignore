@@ -1,2 +1,7 @@
 a.out
 *.o
+libft/libft.a
+libftprintf.a
+test-printf
+.vscode/settings.json
+libft_printf.a

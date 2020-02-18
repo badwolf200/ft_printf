@@ -6,7 +6,7 @@
 /*   By: rkowalsk <rkowalsk@student.le-101.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 14:28:33 by rkowalsk          #+#    #+#             */
-/*   Updated: 2020/02/17 15:47:53 by rkowalsk         ###   ########lyon.fr   */
+/*   Updated: 2020/02/18 15:37:43 by rkowalsk         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ int			ft_print_u(va_list params, t_flag flags)
 	int		size;
 
 	str = ft_uitoa(va_arg(params, unsigned int));
+	if (ft_atoi(str) == 0 && flags.precision)
+		str[0] = '\0';
 	if (!(prec = get_precision(str, flags)))
 		return (-1);
 	if (!(width = get_width(str, prec, flags)))

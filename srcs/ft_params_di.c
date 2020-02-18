@@ -6,7 +6,7 @@
 /*   By: rkowalsk <rkowalsk@student.le-101.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 12:21:30 by rkowalsk          #+#    #+#             */
-/*   Updated: 2020/02/17 15:50:16 by rkowalsk         ###   ########lyon.fr   */
+/*   Updated: 2020/02/18 16:04:35 by rkowalsk         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,13 @@ static void	print_all(t_flag flags, bool neg, char *width, char *prec)
 	ft_putstr_fd(prec, 1);
 }
 
-static void	check_weird_cases(t_flag flags, char *str)
+static void	check_weird_cases(t_flag flags, char *str, char *width, char *prec)
 {
-	if (str[0] == '0' && flags.precision && !flags.nb_precisions)
+	if (width)
+		free(width);
+	if (prec)
+		free(prec);
+	else if (str[0] == '0' && flags.precision && !flags.nb_precisions)
 		str[0] = '\0';
 }
 
@@ -92,7 +96,7 @@ int			ft_print_di(va_list params, t_flag flags)
 		neg = true;
 		str++;
 	}
-	check_weird_cases(flags, str);
+	check_weird_cases(flags, str, NULL, NULL);
 	if (!(prec = get_precision(str, flags)))
 		return (-1);
 	if (!(width = get_width(str, prec, flags, neg)))
@@ -102,7 +106,6 @@ int			ft_print_di(va_list params, t_flag flags)
 	if (flags.minus)
 		ft_putstr_fd(width, 1);
 	size = ft_strlen(str - neg) + ft_strlen(prec) + ft_strlen(width);
-	free(prec);
-	free(width);
+	check_weird_cases(flags, str, width, prec);
 	return (size);
 }

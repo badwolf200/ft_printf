@@ -6,7 +6,7 @@
 #    By: rkowalsk <rkowalsk@student.le-101.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/14 14:32:57 by rkowalsk          #+#    #+#              #
-#    Updated: 2020/02/17 15:48:31 by rkowalsk         ###   ########lyon.fr    #
+#    Updated: 2020/02/18 16:46:24 by rkowalsk         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,9 @@ SRCS =	srcs/ft_printf.c \
 		srcs/ft_params_di.c \
 		srcs/ft_params_uxx.c \
 		srcs/ft_params_p.c \
-		srcs/ft_params_s.c
+		srcs/ft_params_s.c \
+		srcs/ft_parsing.c \
+		srcs/ft_parsing_plus.c
 FLAGS = -Wall -Wextra -Werror
 HEADER = includes
 LIB_NAME = libft/libft.a
