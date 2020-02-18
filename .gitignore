@@ -3,5 +3,5 @@ a.out
 libft/libft.a
 libftprintf.a
 test-printf
-.vscode/settings.json
+.vscode
 libft_printf.a
