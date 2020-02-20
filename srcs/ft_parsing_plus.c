@@ -6,7 +6,7 @@
 /*   By: rkowalsk <rkowalsk@student.le-101.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 16:40:46 by rkowalsk          #+#    #+#             */
-/*   Updated: 2020/02/18 18:19:54 by rkowalsk         ###   ########lyon.fr   */
+/*   Updated: 2020/02/20 14:32:41 by rkowalsk         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ t_flag			ft_pars_cases(t_flag flags)
 		flags.error = true;
 	if (flags.zero && (flags.minus || flags.precision) &&
 			(flags.conv == 'd' || flags.conv == 'i' || flags.conv == 'u' ||
-			flags.conv == 'x' || flags.conv == 'X'))
+			flags.conv == 'x' || flags.conv == 'X' || flags.conv == '%'))
 		flags.zero = false;
 	return (flags);
 }
