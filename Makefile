@@ -34,8 +34,8 @@ $(NAME): $(OBJS) $(LIB_NAME)
 	cp $(LIB_NAME) ./$(NAME)
 	ar rc $(NAME) $(OBJS)
 
-%o: %c $(HEADER)
-	gcc $(FLAGS) -I$(HEADER) -c $< -o $@
+$(OBJS): %o: %c $(HEADER)
+	clang $(FLAGS) -I$(HEADER) -c $< -o $@
 
 $(LIB_NAME):
 	cd libft && make all

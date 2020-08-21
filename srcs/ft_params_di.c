@@ -107,5 +107,6 @@ int			ft_print_di(va_list params, t_flag flags)
 		ft_putstr_fd(width, 1);
 	size = ft_strlen(str - neg) + ft_strlen(prec) + ft_strlen(width);
 	check_weird_cases(flags, str, width, prec);
+	free(str);
 	return (size);
 }

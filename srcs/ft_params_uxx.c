@@ -79,6 +79,7 @@ int			ft_print_u(va_list params, t_flag flags)
 	size = ft_strlen(str) + ft_strlen(prec) + ft_strlen(width);
 	free(prec);
 	free(width);
+	free(str);
 	return (size);
 }
 
@@ -105,6 +106,7 @@ int			ft_print_x_low(va_list params, t_flag flags)
 	size = ft_strlen(str) + ft_strlen(prec) + ft_strlen(width);
 	free(prec);
 	free(width);
+	free(str);
 	return (size);
 }
 
@@ -131,5 +133,6 @@ int			ft_print_x_up(va_list params, t_flag flags)
 	size = ft_strlen(str) + ft_strlen(prec) + ft_strlen(width);
 	free(prec);
 	free(width);
+	free(str);
 	return (size);
 }
