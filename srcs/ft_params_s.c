@@ -6,7 +6,7 @@
 /*   By: rkowalsk <rkowalsk@student.le-101.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 15:21:17 by rkowalsk          #+#    #+#             */
-/*   Updated: 2020/02/18 15:56:42 by rkowalsk         ###   ########lyon.fr   */
+/*   Updated: 2020/09/01 16:18:11 by rkowalsk         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,6 @@ static char	*get_precision(char *str, t_flag flags)
 
 	if (flags.precision == true)
 	{
-		/*if (!ft_strncmp(str, "(null)", 7) && flags.nb_precisions < 6)
-		{
-			if (!(prec = malloc(sizeof(char))))
-				return (NULL);
-			prec[0] = '\0';
-			return (prec);
-		}*/
 		if (!(prec = malloc(sizeof(char) * (ft_strlen(str) + 1))))
 			return (NULL);
 		i = 0;
