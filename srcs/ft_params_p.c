@@ -40,9 +40,12 @@ int			ft_print_p(va_list params, t_flag flags)
 	int		size;
 
 	first_str = ft_uitox_lowercase(va_arg(params, uintptr_t));
-	if (first_str[0] == '0' && flags.precision)
-		first_str[0] = '\0';
-	str = ft_strjoin("0x", first_str);
+	/*if (first_str[0] == '0' && flags.precision)
+		first_str[0] = '\0';*/
+	if (first_str[0] == '0')
+		str = ft_strdup("(nil)");
+	else
+		str = ft_strjoin("0x", first_str);
 	if (!(width = get_width(str, flags)))
 		return (-1);
 	if (!flags.minus)
@@ -51,8 +54,6 @@ int			ft_print_p(va_list params, t_flag flags)
 	if (flags.minus)
 		ft_putstr_fd(width, 1);
 	size = ft_strlen(str) + ft_strlen(width);
-	free(width);
-	free(first_str);
-	free(str);
+	ft_free_all(3, width, first_str, str);
 	return (size);
 }

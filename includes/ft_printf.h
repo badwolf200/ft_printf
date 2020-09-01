@@ -45,5 +45,6 @@ t_flag			ft_pars_flags(va_list params, char *str);
 int				ft_conv_or_flag(char c);
 t_flag			ft_init_static(t_flag flags);
 t_flag			ft_pars_cases(t_flag flags);
+void			ft_free_all(const int number, ...);
 
 #endif

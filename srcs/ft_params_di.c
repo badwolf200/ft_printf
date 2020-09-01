@@ -71,13 +71,9 @@ static void	print_all(t_flag flags, bool neg, char *width, char *prec)
 	ft_putstr_fd(prec, 1);
 }
 
-static void	check_weird_cases(t_flag flags, char *str, char *width, char *prec)
+static void	check_weird_case(t_flag flags, char *str)
 {
-	if (width)
-		free(width);
-	if (prec)
-		free(prec);
-	else if (str[0] == '0' && flags.precision && !flags.nb_precisions)
+	if (str[0] == '0' && flags.precision && !flags.nb_precisions)
 		str[0] = '\0';
 }
 
@@ -90,23 +86,20 @@ int			ft_print_di(va_list params, t_flag flags)
 	bool	neg;
 
 	neg = false;
-	str = ft_itoa(va_arg(params, int));
-	if (str[0] == '-')
-	{
-		neg = true;
-		str++;
-	}
-	check_weird_cases(flags, str, NULL, NULL);
-	if (!(prec = get_precision(str, flags)))
+	if (!(str = ft_itoa(va_arg(params, int))))
 		return (-1);
-	if (!(width = get_width(str, prec, flags, neg)))
+	if (str[0] == '-')
+		neg = true;
+	check_weird_case(flags, str + neg);
+	if (!(prec = get_precision(str + neg, flags)))
+		return (-1);
+	if (!(width = get_width(str + neg, prec, flags, neg)))
 		return (-1);
 	print_all(flags, neg, width, prec);
-	ft_putstr_fd(str, 1);
+	ft_putstr_fd(str + neg, 1);
 	if (flags.minus)
 		ft_putstr_fd(width, 1);
-	size = ft_strlen(str - neg) + ft_strlen(prec) + ft_strlen(width);
-	check_weird_cases(flags, str, width, prec);
-	free(str);
+	size = ft_strlen(str) + ft_strlen(prec) + ft_strlen(width);
+	ft_free_all(3, width, prec, str);
 	return (size);
 }

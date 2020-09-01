@@ -19,7 +19,8 @@ SRCS =	srcs/ft_printf.c \
 		srcs/ft_params_p.c \
 		srcs/ft_params_s.c \
 		srcs/ft_parsing.c \
-		srcs/ft_parsing_plus.c
+		srcs/ft_parsing_plus.c\
+		srcs/ft_useful.c
 FLAGS = -Wall -Wextra -Werror
 HEADER = includes
 LIB_NAME = libft/libft.a

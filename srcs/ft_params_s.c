@@ -19,6 +19,13 @@ static char	*get_precision(char *str, t_flag flags)
 
 	if (flags.precision == true)
 	{
+		if (!ft_strncmp(str, "(null)", 7) && flags.nb_precisions < 6)
+		{
+			if (!(prec = malloc(sizeof(char))))
+				return (NULL);
+			prec[0] = '\0';
+			return (prec);
+		}
 		if (!(prec = malloc(sizeof(char) * (ft_strlen(str) + 1))))
 			return (NULL);
 		i = 0;
@@ -74,8 +81,7 @@ int			ft_print_s(va_list params, t_flag flags)
 		if (flags.minus)
 			ft_putstr_fd(width, 1);
 		size = ft_strlen(str) + ft_strlen(width);
-		free(width);
-		free(str);
+		ft_free_all(2, width, str);
 		return (size);
 	}
 	return (0);
