@@ -42,10 +42,7 @@ int			ft_print_p(va_list params, t_flag flags)
 	first_str = ft_uitox_lowercase(va_arg(params, uintptr_t));
 	if (first_str[0] == '0' && flags.precision)
 		first_str[0] = '\0';
-	/*if (first_str[0] == '0')
-		str = ft_strdup("(nil)");*/
-	else
-		str = ft_strjoin("0x", first_str);
+	str = ft_strjoin("0x", first_str);
 	if (!(width = get_width(str, flags)))
 		return (-1);
 	if (!flags.minus)
