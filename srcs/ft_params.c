@@ -47,11 +47,11 @@ int			ft_print_percent(t_flag flags)
 	{
 		if (flags.minus)
 			ft_putchar_fd('%', 1);
-		/*while (i < flags.nb_width - 1)
+		while (i < flags.nb_width - 1)
 		{
 			ft_putchar_fd(c, 1);
 			i++;
-		}*/
+		}
 		if (!flags.minus)
 			ft_putchar_fd('%', 1);
 	}

@@ -19,13 +19,13 @@ static char	*get_precision(char *str, t_flag flags)
 
 	if (flags.precision == true)
 	{
-		if (!ft_strncmp(str, "(null)", 7) && flags.nb_precisions < 6)
+		/*if (!ft_strncmp(str, "(null)", 7) && flags.nb_precisions < 6)
 		{
 			if (!(prec = malloc(sizeof(char))))
 				return (NULL);
 			prec[0] = '\0';
 			return (prec);
-		}
+		}*/
 		if (!(prec = malloc(sizeof(char) * (ft_strlen(str) + 1))))
 			return (NULL);
 		i = 0;
