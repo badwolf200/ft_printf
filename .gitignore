@@ -1,9 +1,0 @@
-a.out
-*.o
-libft/libft.a
-libftprintf.a
-test-printf
-.vscode
-libft_printf.a
-pft/
-pft_2019/
