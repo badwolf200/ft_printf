@@ -22,7 +22,8 @@ SRCS =	srcs/ft_printf.c \
 		srcs/ft_parsing_plus.c\
 		srcs/ft_useful.c
 FLAGS = -Wall -Wextra -Werror
-HEADER = includes
+HEADER_FILE = includes
+HEADER = $(HEADER_FILE)/ft_printf.h
 LIB_NAME = libft/libft.a
 OBJS = ${SRCS:.c=.o}
 
@@ -36,7 +37,7 @@ $(NAME): $(OBJS) $(LIB_NAME)
 	ar rc $(NAME) $(OBJS)
 
 $(OBJS): %o: %c $(HEADER)
-	clang $(FLAGS) -I$(HEADER) -c $< -o $@
+	clang $(FLAGS) -I$(HEADER_FILE) -c $< -o $@
 
 $(LIB_NAME):
 	cd libft && make all

@@ -39,12 +39,14 @@ int			ft_print_p(va_list params, t_flag flags)
 	char	*width;
 	int		size;
 
-	first_str = ft_uitox_lowercase(va_arg(params, uintptr_t));
+	if (!(first_str = ft_uitox_lowercase(va_arg(params, uintptr_t))))
+		return (-1);
 	if (first_str[0] == '0' && flags.precision)
 		first_str[0] = '\0';
-	str = ft_strjoin("0x", first_str);
+	if (!(str = ft_strjoin("0x", first_str)))
+		return (ft_free_all(1, first_str));
 	if (!(width = get_width(str, flags)))
-		return (-1);
+		return (ft_free_all(2, str, first_str));
 	if (!flags.minus)
 		ft_putstr_fd(width, 1);
 	ft_putstr_fd(str, 1);

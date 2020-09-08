@@ -63,13 +63,14 @@ int			ft_print_u(va_list params, t_flag flags)
 	char	*width;
 	int		size;
 
-	str = ft_uitoa(va_arg(params, unsigned int));
+	if (!(str = ft_uitoa(va_arg(params, unsigned int))))
+		return (-1);
 	if (ft_atoi(str) == 0 && flags.precision)
 		str[0] = '\0';
 	if (!(prec = get_precision(str, flags)))
-		return (-1);
+		return (ft_free_all(1, str));
 	if (!(width = get_width(str, prec, flags)))
-		return (-1);
+		return (ft_free_all(2, str, prec));
 	if (!flags.minus)
 		ft_putstr_fd(width, 1);
 	ft_putstr_fd(prec, 1);
@@ -77,9 +78,7 @@ int			ft_print_u(va_list params, t_flag flags)
 	if (flags.minus)
 		ft_putstr_fd(width, 1);
 	size = ft_strlen(str) + ft_strlen(prec) + ft_strlen(width);
-	free(prec);
-	free(width);
-	free(str);
+	ft_free_all(3, str, width, prec);
 	return (size);
 }
 
@@ -90,13 +89,14 @@ int			ft_print_x_low(va_list params, t_flag flags)
 	char	*width;
 	int		size;
 
-	str = ft_uitox_lowercase(va_arg(params, unsigned int));
+	if (!(str = ft_uitox_lowercase(va_arg(params, unsigned int))))
+		return (-1);
 	if (str[0] == '0' && flags.precision && !flags.nb_precisions)
 		str[0] = '\0';
 	if (!(prec = get_precision(str, flags)))
-		return (-1);
+		return (ft_free_all(1, str));
 	if (!(width = get_width(str, prec, flags)))
-		return (-1);
+		return (ft_free_all(2, str, prec));
 	if (!flags.minus)
 		ft_putstr_fd(width, 1);
 	ft_putstr_fd(prec, 1);
@@ -104,9 +104,7 @@ int			ft_print_x_low(va_list params, t_flag flags)
 	if (flags.minus)
 		ft_putstr_fd(width, 1);
 	size = ft_strlen(str) + ft_strlen(prec) + ft_strlen(width);
-	free(prec);
-	free(width);
-	free(str);
+	ft_free_all(3, str, width, prec);
 	return (size);
 }
 
@@ -117,13 +115,14 @@ int			ft_print_x_up(va_list params, t_flag flags)
 	char	*width;
 	int		size;
 
-	str = ft_uitox_uppercase(va_arg(params, unsigned int));
+	if (!(str = ft_uitox_uppercase(va_arg(params, unsigned int))))
+		return (-1);
 	if (str[0] == '0' && flags.precision && !flags.nb_precisions)
 		str[0] = '\0';
 	if (!(prec = get_precision(str, flags)))
-		return (-1);
+		return (ft_free_all(1, str));
 	if (!(width = get_width(str, prec, flags)))
-		return (-1);
+		return (ft_free_all(2, str, prec));
 	if (!flags.minus)
 		ft_putstr_fd(width, 1);
 	ft_putstr_fd(prec, 1);
@@ -131,8 +130,6 @@ int			ft_print_x_up(va_list params, t_flag flags)
 	if (flags.minus)
 		ft_putstr_fd(width, 1);
 	size = ft_strlen(str) + ft_strlen(prec) + ft_strlen(width);
-	free(prec);
-	free(width);
-	free(str);
+	ft_free_all(3, str, width, prec);
 	return (size);
 }

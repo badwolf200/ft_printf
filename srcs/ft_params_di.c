@@ -92,9 +92,9 @@ int			ft_print_di(va_list params, t_flag flags)
 		neg = true;
 	check_weird_case(flags, str + neg);
 	if (!(prec = get_precision(str + neg, flags)))
-		return (-1);
+		return (ft_free_all(1, str));
 	if (!(width = get_width(str + neg, prec, flags, neg)))
-		return (-1);
+		return (ft_free_all(2, prec, str));
 	print_all(flags, neg, width, prec);
 	ft_putstr_fd(str + neg, 1);
 	if (flags.minus)

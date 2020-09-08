@@ -67,7 +67,7 @@ int			ft_print_s(va_list params, t_flag flags)
 		if (!(str = get_precision(str, flags)))
 			return (-1);
 		if (!(width = get_width(str, flags)))
-			return (-1);
+			return (ft_free_all(1, str));
 		if (!flags.minus)
 			ft_putstr_fd(width, 1);
 		ft_putstr_fd(str, 1);

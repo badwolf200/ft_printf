@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-void	ft_free_all(const int number, ...)
+int		ft_free_all(const int number, ...)
 {
 	va_list	params;
 	int		i;
@@ -28,4 +28,5 @@ void	ft_free_all(const int number, ...)
 		i++;
 	}
 	va_end(params);
+	return (-1);
 }
